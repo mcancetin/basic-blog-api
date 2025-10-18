@@ -1,3 +1,7 @@
-// import { drizzle } from "drizzle-orm/node-postgres";
+import env from "@/env";
+import app from "./src/app.ts";
 
-// const db = drizzle(Deno.env.get("DATABASE_URL")!);
+const PORT = env.PORT;
+console.log(`Server is running on port ${PORT}`);
+
+Deno.serve({ port: PORT }, app.fetch);
