@@ -6,7 +6,8 @@
     "npm:@types/pg@^8.15.5": "8.15.5",
     "npm:drizzle-kit@*": "0.31.5_esbuild@0.25.10",
     "npm:drizzle-kit@~0.31.5": "0.31.5_esbuild@0.25.10",
-    "npm:drizzle-orm@~0.44.6": "0.44.6",
+    "npm:drizzle-orm@~0.44.6": "0.44.6_@types+pg@8.15.5_pg@8.16.3",
+    "npm:drizzle-zod@~0.8.3": "0.8.3_drizzle-orm@0.44.6__@types+pg@8.15.5__pg@8.16.3_zod@4.1.12_@types+pg@8.15.5_pg@8.16.3",
     "npm:pg@^8.16.3": "8.16.3"
   },
   "jsr": {
@@ -316,6 +317,24 @@
     "drizzle-orm@0.44.6": {
       "integrity": "sha512-uy6uarrrEOc9K1u5/uhBFJbdF5VJ5xQ/Yzbecw3eAYOunv5FDeYkR2m8iitocdHBOHbvorviKOW5GVw0U1j4LQ=="
     },
+    "drizzle-orm@0.44.6_@types+pg@8.15.5_pg@8.16.3": {
+      "integrity": "sha512-uy6uarrrEOc9K1u5/uhBFJbdF5VJ5xQ/Yzbecw3eAYOunv5FDeYkR2m8iitocdHBOHbvorviKOW5GVw0U1j4LQ==",
+      "dependencies": [
+        "@types/pg",
+        "pg"
+      ],
+      "optionalPeers": [
+        "@types/pg",
+        "pg"
+      ]
+    },
+    "drizzle-zod@0.8.3_drizzle-orm@0.44.6__@types+pg@8.15.5__pg@8.16.3_zod@4.1.12_@types+pg@8.15.5_pg@8.16.3": {
+      "integrity": "sha512-66yVOuvGhKJnTdiqj1/Xaaz9/qzOdRJADpDa68enqS6g3t0kpNkwNYjUuaeXgZfO/UWuIM9HIhSlJ6C5ZraMww==",
+      "dependencies": [
+        "drizzle-orm@0.44.6_@types+pg@8.15.5_pg@8.16.3",
+        "zod"
+      ]
+    },
     "esbuild-register@3.6.0_esbuild@0.25.10": {
       "integrity": "sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==",
       "dependencies": [
@@ -477,6 +496,9 @@
     },
     "xtend@4.0.2": {
       "integrity": "sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ=="
+    },
+    "zod@4.1.12": {
+      "integrity": "sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ=="
     }
   },
   "workspace": {
@@ -485,6 +507,7 @@
       "npm:@types/pg@^8.15.5",
       "npm:drizzle-kit@~0.31.5",
       "npm:drizzle-orm@~0.44.6",
+      "npm:drizzle-zod@~0.8.3",
       "npm:pg@^8.16.3"
     ]
   }
