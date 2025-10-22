@@ -7,6 +7,8 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
+import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
+
 export const categories = pgTable("categories", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: varchar({ length: 255 }).notNull().unique(),
@@ -32,3 +34,6 @@ export const postsTags = pgTable("posts_tags", {
 }, (t) => [
   primaryKey({ columns: [t.postId, t.tagId] }),
 ]);
+
+export const tagInsertSchema = createInsertSchema(tags);
+export const updateInsertSchema = createUpdateSchema(tags);
