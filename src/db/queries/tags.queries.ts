@@ -1,5 +1,5 @@
 import db from "../index.ts";
-import { tagInsertSchema, tags, updateInsertSchema } from "../schema.ts";
+import { tagInsertSchema, tags, tagUpdateSchema } from "../schema.ts";
 import { eq } from "drizzle-orm";
 
 export async function getTags() {
@@ -27,7 +27,7 @@ export async function createTag(tag: unknown) {
 }
 
 export async function updateTag(tag: unknown) {
-  const validatedTag = updateInsertSchema.parse(tag);
+  const validatedTag = tagUpdateSchema.parse(tag);
   if (!validatedTag.id) return null;
 
   const [item] = await db.update(tags)

@@ -29,7 +29,7 @@ tags.get(
   "/:id",
   zValidator(
     "param",
-    z.object({ id: z.string().uuid() }),
+    z.object({ id: z.uuid() }),
   ),
   async (c) => {
     try {
@@ -63,7 +63,7 @@ tags.post("/", zValidator("json", tagInsertSchema), async (c) => {
 // PATCH update tag
 tags.patch(
   "/:id",
-  zValidator("param", z.object({ id: z.string().uuid() })),
+  zValidator("param", z.object({ id: z.uuid() })),
   zValidator("json", tagInsertSchema.partial()),
   async (c) => {
     try {
@@ -83,7 +83,7 @@ tags.patch(
 // DELETE tag
 tags.delete(
   "/:id",
-  zValidator("param", z.object({ id: z.string().uuid() })),
+  zValidator("param", z.object({ id: z.uuid() })),
   async (c) => {
     try {
       const { id } = c.req.valid("param");
