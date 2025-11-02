@@ -36,4 +36,7 @@ export const postsTags = pgTable("posts_tags", {
 ]);
 
 export const tagInsertSchema = createInsertSchema(tags);
-export const updateInsertSchema = createUpdateSchema(tags);
+export const tagUpdateSchema = createUpdateSchema(tags);
+
+export const categoryInsertSchema = createInsertSchema(categories);
+export const categoryUpdateSchema = createInsertSchema(categories);
