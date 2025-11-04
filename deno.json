@@ -9,6 +9,7 @@
   "imports": {
     "@/env": "./env.ts",
     "@/routes": "./src/routes/index.routes.ts",
+    "@/utils": "./src/utils/index.ts",
     "@/queries": "./src/db/queries/index.queries.ts",
     "@hono/zod-validator": "npm:@hono/zod-validator@^0.7.4",
     "@std/assert": "jsr:@std/assert@1",
