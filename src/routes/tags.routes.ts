@@ -1,6 +1,4 @@
 import { Hono } from "hono";
-import z from "zod";
-import { zValidator } from "@hono/zod-validator";
 
 import {
   createTag,
@@ -9,7 +7,8 @@ import {
   getTags,
   updateTag,
 } from "@/queries";
-import { tagInsertSchema } from "../db/schema.ts";
+import { tagInsertSchema } from "@/schema";
+import { idParamValidator, validate } from "@/utils";
 
 const tags = new Hono();
 
@@ -27,10 +26,7 @@ tags.get("/", async (c) => {
 // GET tag by ID
 tags.get(
   "/:id",
-  zValidator(
-    "param",
-    z.object({ id: z.uuid() }),
-  ),
+  idParamValidator(),
   async (c) => {
     try {
       const { id } = c.req.valid("param");
@@ -45,7 +41,7 @@ tags.get(
 );
 
 // POST create tag
-tags.post("/", zValidator("json", tagInsertSchema), async (c) => {
+tags.post("/", validate("json", tagInsertSchema), async (c) => {
   try {
     const validatedTag = c.req.valid("json");
     const tag = await createTag(validatedTag);
@@ -63,8 +59,8 @@ tags.post("/", zValidator("json", tagInsertSchema), async (c) => {
 // PATCH update tag
 tags.patch(
   "/:id",
-  zValidator("param", z.object({ id: z.uuid() })),
-  zValidator("json", tagInsertSchema.partial()),
+  idParamValidator(),
+  validate("json", tagInsertSchema),
   async (c) => {
     try {
       const { id } = c.req.valid("param");
@@ -83,7 +79,7 @@ tags.patch(
 // DELETE tag
 tags.delete(
   "/:id",
-  zValidator("param", z.object({ id: z.uuid() })),
+  idParamValidator(),
   async (c) => {
     try {
       const { id } = c.req.valid("param");

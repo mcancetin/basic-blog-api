@@ -35,8 +35,12 @@ export const postsTags = pgTable("posts_tags", {
   primaryKey({ columns: [t.postId, t.tagId] }),
 ]);
 
-export const tagInsertSchema = createInsertSchema(tags);
-export const tagUpdateSchema = createUpdateSchema(tags);
+export const tagInsertSchema = createInsertSchema(tags).omit({ id: true });
+export const tagUpdateSchema = createUpdateSchema(tags).omit({ id: true });
 
-export const categoryInsertSchema = createInsertSchema(categories);
-export const categoryUpdateSchema = createInsertSchema(categories);
+export const categoryInsertSchema = createInsertSchema(categories).omit({
+  id: true,
+});
+export const categoryUpdateSchema = createInsertSchema(categories).omit({
+  id: true,
+});

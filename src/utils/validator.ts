@@ -1,5 +1,8 @@
 import { zValidator } from "@hono/zod-validator";
-import type { ZodType } from "zod";
+import { z, type ZodType } from "zod";
+
+export const idParamValidator = () =>
+  zValidator("param", z.object({ id: z.uuid() }));
 
 export function validate<T extends ZodType>(
   type: "json" | "param" | "query",

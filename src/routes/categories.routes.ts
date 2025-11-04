@@ -1,6 +1,4 @@
 import { Hono } from "hono";
-import z from "zod";
-import { zValidator } from "@hono/zod-validator";
 
 import {
   createCategory,
@@ -10,6 +8,7 @@ import {
   updateCategory,
 } from "@/queries";
 import { categoryInsertSchema } from "../db/schema.ts";
+import { idParamValidator, validate } from "@/utils";
 
 const categories = new Hono();
 
@@ -25,10 +24,7 @@ categories.get("/", async (c) => {
 
 categories.get(
   "/:id",
-  zValidator(
-    "param",
-    z.object({ id: z.uuid() }),
-  ),
+  idParamValidator(),
   async (c) => {
     try {
       const { id } = c.req.valid("param");
@@ -42,7 +38,7 @@ categories.get(
   },
 );
 
-categories.post("/", zValidator("json", categoryInsertSchema), async (c) => {
+categories.post("/", validate("json", categoryInsertSchema), async (c) => {
   try {
     const validatedCategory = c.req.valid("json");
     const category = await createCategory(validatedCategory);
@@ -60,8 +56,8 @@ categories.post("/", zValidator("json", categoryInsertSchema), async (c) => {
 
 categories.patch(
   "/:id",
-  zValidator("param", z.object({ id: z.uuid() })),
-  zValidator("json", categoryInsertSchema.partial()),
+  idParamValidator(),
+  validate("json", categoryInsertSchema),
   async (c) => {
     try {
       const { id } = c.req.valid("param");
@@ -79,7 +75,7 @@ categories.patch(
 
 categories.delete(
   "/:id",
-  zValidator("param", z.object({ id: z.uuid() })),
+  idParamValidator(),
   async (c) => {
     try {
       const { id } = c.req.valid("param");
