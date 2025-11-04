@@ -26,13 +26,12 @@ export async function createTag(tag: unknown) {
   return item;
 }
 
-export async function updateTag(tag: unknown) {
+export async function updateTag(id: string, tag: unknown) {
   const validatedTag = tagUpdateSchema.parse(tag);
-  if (!validatedTag.id) return null;
 
   const [item] = await db.update(tags)
     .set(validatedTag)
-    .where(eq(tags.id, validatedTag.id))
+    .where(eq(tags.id, id))
     .returning();
 
   return item || null;

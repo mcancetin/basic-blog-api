@@ -65,7 +65,7 @@ tags.patch(
     try {
       const { id } = c.req.valid("param");
       const updateData = c.req.valid("json");
-      const tag = await updateTag({ id, ...updateData });
+      const tag = await updateTag(id, updateData);
 
       if (!tag) return c.json({ error: "Tag not found" }, 404);
       return c.json(tag, 200);

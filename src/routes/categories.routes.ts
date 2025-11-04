@@ -62,7 +62,7 @@ categories.patch(
     try {
       const { id } = c.req.valid("param");
       const updateData = c.req.valid("json");
-      const category = await updateCategory({ id, ...updateData });
+      const category = await updateCategory(id, updateData);
 
       if (!category) return c.json({ error: "Category not found" }, 404);
       return c.json(category, 200);

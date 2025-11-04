@@ -1,11 +1,11 @@
 import db from "../index.ts";
+
+import { eq } from "drizzle-orm";
 import {
   categories,
   categoryInsertSchema,
   categoryUpdateSchema,
-} from "../schema.ts";
-
-import { eq } from "drizzle-orm";
+} from "@/schema";
 
 export async function getCategories() {
   const items = await db.select().from(categories);
@@ -32,13 +32,12 @@ export async function createCategory(category: unknown) {
   return item;
 }
 
-export async function updateCategory(category: unknown) {
+export async function updateCategory(id: string, category: unknown) {
   const validatedCategory = categoryUpdateSchema.parse(category);
-  if (!validatedCategory.id) return null;
 
   const [item] = await db.update(categories)
     .set(validatedCategory)
-    .where(eq(categories.id, validatedCategory.id))
+    .where(eq(categories.id, id))
     .returning();
 
   return item || null;
