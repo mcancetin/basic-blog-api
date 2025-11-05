@@ -8,6 +8,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
+import z from "zod";
 
 export const categories = pgTable("categories", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -44,3 +45,11 @@ export const categoryInsertSchema = createInsertSchema(categories).omit({
 export const categoryUpdateSchema = createInsertSchema(categories).omit({
   id: true,
 });
+
+export const postInsertSchema = createInsertSchema(posts).extend({
+  tags: z.array(z.uuid()).optional(),
+}).omit({ id: true });
+
+export const postUpdateSchema = createUpdateSchema(posts).extend({
+  tags: z.array(z.uuid()).optional(),
+}).omit({ id: true });
