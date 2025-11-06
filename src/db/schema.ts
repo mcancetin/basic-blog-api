@@ -30,8 +30,12 @@ export const posts = pgTable("posts", {
 });
 
 export const postsTags = pgTable("posts_tags", {
-  postId: uuid("post_id").notNull().references(() => posts.id),
-  tagId: uuid("tag_id").notNull().references(() => tags.id),
+  postId: uuid("post_id").notNull().references(() => posts.id, {
+    onDelete: "cascade",
+  }),
+  tagId: uuid("tag_id").notNull().references(() => tags.id, {
+    onDelete: "cascade",
+  }),
 }, (t) => [
   primaryKey({ columns: [t.postId, t.tagId] }),
 ]);

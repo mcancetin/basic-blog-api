@@ -115,7 +115,6 @@ export async function deletePost(id: string) {
   const deleted = await getPostById(id);
 
   await db.delete(postsTags).where(eq(postsTags.postId, id));
-  await db.delete(posts).where(eq(posts.id, id));
 
   return deleted || null;
 }
